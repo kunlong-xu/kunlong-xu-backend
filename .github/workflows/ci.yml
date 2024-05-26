@@ -25,5 +25,5 @@ jobs:
       run: docker build ./server/file-management -t file-management:latest
 
     - name: Push the Docker image
-      run: docker push file-management:latest
+      run: docker push ${DOCKER_USERNAME}/file-management:latest
     
