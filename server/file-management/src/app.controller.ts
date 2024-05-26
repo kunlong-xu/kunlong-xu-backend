@@ -1,5 +1,6 @@
-import { Controller, Get, Post, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Res, UploadedFile } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -8,6 +9,11 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('pipeline')
+  getPipeline(@Res() res: Response) {
+    return res.status(200).json({ message: 'Pipeline is working' });
   }
 
   @Post('upload')
