@@ -22,7 +22,7 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Build the Docker image
-      run: docker build . -t file-management:latest
+      run: docker build ./server/file-management -t file-management:latest
 
     - name: Push the Docker image
       run: docker push file-management:latest
