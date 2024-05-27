@@ -1,0 +1,31 @@
+
+name: file-management CD
+
+on:
+  workflow_run:
+    workflows: ["file-management CI"]
+    types:
+      - completed
+  
+jobs:
+
+  build:
+   
+    runs-on: self-hosted
+    env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    steps:
+
+    - name: Pull Docker image from DockerHub
+
+      run: docker pull {{DOCKER_USERNAME}}/file-management:latest
+
+    - name: Delete the last running container
+      run: sudo docker rm -f file-management || true
+
+    - name: Run the Docker image
+      run: sudo docker run -d -p 8080:3000 --name file-management ${DOCKER_USERNAME}/file-management:latest
+
+  
+    

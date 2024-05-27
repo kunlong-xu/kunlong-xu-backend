@@ -1,5 +1,5 @@
 
-name: docker ci
+name: file-management CI
 
 on:
   push:
