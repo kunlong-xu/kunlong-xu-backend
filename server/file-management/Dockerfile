@@ -1,26 +1,30 @@
-# Base image
-FROM node:18
+# 构建阶段
+FROM node:20-alpine AS build
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-# Install app dependencies
-RUN npm install
+RUN npm install --omit=dev  && npm cache clean --force
 
-# Bundle app source
 COPY . .
 
-# Copy the .env and .env.development files
-# COPY .env .env.development ./
-
-# Creates a "dist" folder with the production build
 RUN npm run build
 
-# Expose the port on which the app will run
-EXPOSE 3001
+# 运行阶段
+FROM node:20-alpine
 
-# Start the server using the production build
+WORKDIR /usr/src/app
+
+# 复制构建阶段中安装的依赖
+COPY --from=build /usr/src/app/node_modules ./node_modules
+# 复制构建阶段中打包的文件
+COPY --from=build /usr/src/app/dist ./dist
+
+# 复制构建阶段中的 package.json 文件
+COPY --from=build /usr/src/app/package*.json ./
+
+
+EXPOSE 3000
+
 CMD ["npm", "run", "start:prod"]
