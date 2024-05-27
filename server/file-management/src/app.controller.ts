@@ -18,7 +18,7 @@ export class AppController {
 
   @Get('cd')
   getCD(@Res() res: Response) {
-    return res.status(200).json({ message: 'CD is working' });
+    return res.status(200).json({ message: 'CD is working or not' });
   }
 
   @Post('upload')
