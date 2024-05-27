@@ -14,12 +14,11 @@ jobs:
     runs-on: self-hosted
     env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     steps:
 
     - name: Pull Docker image from DockerHub
 
-      run: docker pull {{DOCKER_USERNAME}}/file-management:latest
+      run: docker pull ${DOCKER_USERNAME}/file-management:latest
 
     - name: Delete the last running container
       run: sudo docker rm -f file-management || true
