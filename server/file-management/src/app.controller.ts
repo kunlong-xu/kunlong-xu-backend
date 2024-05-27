@@ -16,6 +16,11 @@ export class AppController {
     return res.status(200).json({ message: 'Pipeline is working' });
   }
 
+  @Get('cd')
+  getCD(@Res() res: Response) {
+    return res.status(200).json({ message: 'CD is working' });
+  }
+
   @Post('upload')
   upload(@UploadedFile() file) {
     return file;
