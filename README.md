@@ -29,7 +29,6 @@ We need to allow uploading only the following file types:
 
 You can access the database using the following connection string:
 
-`mysql://backend-practice:t00f8Haq2kACHSLS@astratech-sql-test-astratech-33c5.d.aivencloud.com:19271/defaultdb?ssl-mode=REQUIRED`
 
 #### Schema
 
